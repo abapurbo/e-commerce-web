@@ -1,0 +1,39 @@
+input[type='text'] {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* responsive design */
+@media screen and (max-width:576px) {
+
+    #input-container {
+        display: flex;
+        align-items: center;
+        height: 35px;
+        background-color: white;
+        border-radius: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /* search container */
+    #search {
+        display: flex;
+        align-items:center;
+        justify-content:center;
+        height: 25px;
+        width: 50px;
+        border-radius: 20px;
+    }
+
+    input[type='text'] {
+        font-size: 13px;
+        font-weight: 500;
+    }
+
+    #input-filed {
+        padding-left: 12px;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+    }
+}
