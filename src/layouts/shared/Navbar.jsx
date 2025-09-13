@@ -7,6 +7,8 @@ import { CgProfile } from "react-icons/cg";
 import "../shared/sharedStyles/style.css"
 import { Drawer, IconButton, useMediaQuery } from "@mui/material";
 import { CiMenuBurger } from "react-icons/ci";
+import { FaRegHeart, FaShoppingCart, FaUserCircle } from "react-icons/fa";
+import { MdCategory, MdSettings } from "react-icons/md";
 
 
 
@@ -74,13 +76,17 @@ export default function Navbar() {
       "Computers & Accessories",
       "Fashion & Lifestyle",
       "Home & Living",
-      "Beauty",
+      "Beauty & Personal Care",
       "Sports & Outdoors",
-      "Kids",
+      "Kids & Toys",
       "Books & Education",
+      "Groceries & Essentials",
+      "Appliances",
+      "Health & Wellness",
     ],
     []
   );
+
   // headless ui menu item 
   const options = useMemo(() => categories.map((c) => ({ value: c, label: c })), [categories]);
 
@@ -128,25 +134,56 @@ export default function Navbar() {
 
           {/* Brand Logo */}
           <div className="flex flex-row items-center md:gap-2 cursor-pointer md:mx-auto">
-            {/* mobile menu */}
+            {/* Mobile Menu Button */}
             <div className="md:hidden">
               <IconButton onClick={toggleDrawer(true)}>
-                <CiMenuBurger className="text-white  text-2xl font-black cursor-pointer hover:text-emerald-400 transition" />
+                <CiMenuBurger className="text-white text-2xl cursor-pointer hover:text-emerald-400 transition" />
               </IconButton>
-              {/*  */}
-              <Drawer open={open} onClose={toggleDrawer(false)}>
-                {/* menu content */}
-                <ul>
-                  <li>hello</li>
-                  <li>hello</li>
-                  <li>hello</li>
-                  <li>hello</li>
-                  <li>hello</li>
-                  <li>hello</li>
-                </ul>
+
+              {/* Drawer */}
+              {/* Drawer */}
+              <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
+                <div className="w-72 h-full bg-white text-white flex flex-col">
+                  {/* Brand + User Section */}
+                  <div className="p-5 flex bg-gray-900 items-center gap-3">
+                    <FaUserCircle className="text-4xl drop-shadow-lg" />
+                    <div>
+                      <h1 className="text-lg font-bold">Hello, Guest</h1>
+                      <p className="text-sm opacity-90">Sign in / Register</p>
+                    </div>
+                  </div>
+
+                  {/* Menu Links */}
+                  <nav className="flex flex-col mt-6 px-3 gap-1">
+                    <button className="flex items-center gap-3 p-3 rounded-md hover:bg-gray-800 transition border-l-4 border-transparent hover:border-emerald-500">
+                      <MdCategory className="text-xl" />
+                      
+                    </button>
+                    <button className="flex items-center gap-3 p-3 rounded-md hover:bg-gray-800 transition border-l-4 border-transparent hover:border-emerald-500">
+                      <FaRegHeart className="text-xl" />
+        
+                    </button>
+                    <button className="flex items-center gap-3 p-3 rounded-md hover:bg-gray-800 transition border-l-4 border-transparent hover:border-emerald-500">
+                      <FaShoppingCart className="text-xl" />
+        
+                    </button>
+                    <button className="flex items-center gap-3 p-3 rounded-md hover:bg-gray-800 transition border-l-4 border-transparent hover:border-emerald-500">
+                      <MdSettings className="text-xl" />
+                
+                    </button>
+                  </nav>
+
+                  {/* Footer */}
+                  <div className="mt-auto p-5 border-t border-gray-800">
+                    <p className="text-xs text-gray-400">© 2025 Shopfinity</p>
+                    <p className="text-xs text-gray-500 mt-1">All rights reserved</p>
+                  </div>
+                </div>
               </Drawer>
+
             </div>
 
+            {/* Brand Logo */}
             <img
               className="h-10 w-auto hidden md:block object-cover"
               src="https://i.ibb.co.com/YF4HprZS/Screenshot-2025-09-10-112627-removebg-preview.png"
@@ -156,7 +193,6 @@ export default function Navbar() {
               <i>Shopfinity</i>
             </span>
           </div>
-
 
           {/* Mobile Icons (Cart & Profile) */}
           <div className="md:hidden  flex  items-center gap-4">
