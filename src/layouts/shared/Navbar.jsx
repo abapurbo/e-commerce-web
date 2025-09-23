@@ -7,11 +7,9 @@ import { CgProfile } from "react-icons/cg";
 import "../shared/sharedStyles/style.css"
 import { Drawer, IconButton, useMediaQuery } from "@mui/material";
 import { CiMenuBurger } from "react-icons/ci";
-import { FaRegHeart, FaShoppingCart, FaUserCircle } from "react-icons/fa";
-import { MdCategory, MdSettings } from "react-icons/md";
-
-
-
+import { FiChevronRight } from "react-icons/fi";
+import { FaUserCircle } from "react-icons/fa";
+import { CgMenu } from "react-icons/cg";
 // Reusable NavItem
 function NavItem({ link, onClick }) {
   return (
@@ -84,7 +82,6 @@ export default function Navbar() {
       "Appliances",
       "Health & Wellness",
     ],
-    []
   );
 
   // headless ui menu item 
@@ -122,6 +119,22 @@ export default function Navbar() {
       setOpen(false);
     }
   }, [isDesktop, open]);
+  const categoryNames = [
+    "Anti-theft Backpacks",
+    "Sleep Tech & Bedroom Wellness",
+    "Home Fitness & Compact Gym",
+    "Pet Tech & Health",
+    "Fashion (Men’s, Women’s, Kids’)",
+    "Beauty & Personal Care",
+    "Groceries & Daily Essentials",
+    "Electronics & Gadgets",
+    "Computers & Accessories",
+    "Kitchen & Home Essentials",
+    "Footwear",
+    "Bags & Travel Essentials",
+    "Health & Wellness",
+    "Baby Products"
+  ];
 
   return (
     <div className="sticky top-0 z-50">
@@ -141,45 +154,50 @@ export default function Navbar() {
               </IconButton>
 
               {/* Drawer */}
-              {/* Drawer */}
               <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
-                <div className="w-72 h-full bg-white text-white flex flex-col">
-                  {/* Brand + User Section */}
-                  <div className="p-5 flex bg-gray-900 items-center gap-3">
-                    <FaUserCircle className="text-4xl drop-shadow-lg" />
+                <div className="w-80 h-full bg-white text-gray-900 flex flex-col shadow-xl font-sans">
+
+                  {/* Header Section */}
+                  <div className="bg-gray-900 p-6 flex items-center gap-4 shadow-md ">
+                    <FaUserCircle className="text-5xl text-white drop-shadow-lg" />
                     <div>
-                      <h1 className="text-lg font-bold">Hello, Guest</h1>
-                      <p className="text-sm opacity-90">Sign in / Register</p>
+                      <h1 className="text-xl font-bold text-white tracking-wide">Welcome to Shopfinity</h1>
+                      <p className="text-sm text-indigo-200 hover:underline cursor-pointer mt-1">
+                        {/* react router setup */}
+                        Sign in or Create Account
+                      </p>
                     </div>
                   </div>
 
-                  {/* Menu Links */}
-                  <nav className="flex flex-col mt-6 px-3 gap-1">
-                    <button className="flex items-center gap-3 p-3 rounded-md hover:bg-gray-800 transition border-l-4 border-transparent hover:border-emerald-500">
-                      <MdCategory className="text-xl" />
-                      
-                    </button>
-                    <button className="flex items-center gap-3 p-3 rounded-md hover:bg-gray-800 transition border-l-4 border-transparent hover:border-emerald-500">
-                      <FaRegHeart className="text-xl" />
-        
-                    </button>
-                    <button className="flex items-center gap-3 p-3 rounded-md hover:bg-gray-800 transition border-l-4 border-transparent hover:border-emerald-500">
-                      <FaShoppingCart className="text-xl" />
-        
-                    </button>
-                    <button className="flex items-center gap-3 p-3 rounded-md hover:bg-gray-800 transition border-l-4 border-transparent hover:border-emerald-500">
-                      <MdSettings className="text-xl" />
-                
-                    </button>
-                  </nav>
+                  {/* Department Menu */}
+                  <div className="flex-1 overflow-y-auto p-6">
+                    <h2 className="text-lg font-semibold text-black  mb-4 border-b pb-2 tracking-wider">
+                      Explore Categories
+                    </h2>
+
+                    <ul className="space-y-3">
+                      {categoryNames.map((item, index) => (
+                        <li
+                          key={index}
+                          className="group flex justify-between items-center px-3 py-2 rounded-md hover:bg-indigo-50 transition-all duration-200 cursor-pointer"
+                        >
+                          <span className="text-black group-hover:text-indigo-700 font-medium tracking-tight">
+                            {item}
+                          </span>
+                          <FiChevronRight className="text-black group-hover:text-indigo-600 transition duration-150" />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
                   {/* Footer */}
-                  <div className="mt-auto p-5 border-t border-gray-800">
-                    <p className="text-xs text-gray-400">© 2025 Shopfinity</p>
-                    <p className="text-xs text-gray-500 mt-1">All rights reserved</p>
+                  <div className="px-6 py-4 border-t bg-gray-50 text-center text-xs text-gray-500">
+                    <p className="font-medium">© 2025 Shopfinity</p>
+                    <p className="mt-1">Empowering your shopping experience</p>
                   </div>
                 </div>
               </Drawer>
+
 
             </div>
 
@@ -250,7 +268,7 @@ export default function Navbar() {
         {/* user profile & shopping card */}
         <div className="order-4 hidden md:flex  items-center gap-5 ml-4">
           <div className="relative">
-            <PiShoppingCartThin className="text-3xl cursor-pointer hover:text-emerald-400 transition" />
+            <PiShoppingCartThin className="text-3xl cursor-pointer text-white hover:text-emerald-400 transition" />
             <span className="absolute -top-1 -right-2 bg-blue-50 text-black text-xs rounded-full px-1.5">
               3
             </span>
@@ -270,17 +288,16 @@ export default function Navbar() {
 
 
       {/* Secondary Navbar */}
-      {/* <div className="hidden md:flex text-[14px] justify-start gap-4 bg-gray-800 px-8 py-2 text-gray-200 font-medium shadow-sm">
-        {(moreCategoriesOpen ? categories : categories.slice(0, 3)).map((cat, i) => (
-          <CategoryItem key={i} cat={cat} />
-        ))}
+      <div className="hidden md:flex text-[14px] justify-start items-center gap-4 bg-gray-800 px-8 py-2 text-gray-200 font-medium shadow-sm">
+       <CgMenu className="text-2xl"/>
+       
         <span
           className="cursor-pointer hover:text-emerald-400 font-semibold"
           onClick={() => setMoreCategoriesOpen(!moreCategoriesOpen)}
         >
           {moreCategoriesOpen ? "Show Less" : "More Categories"}
         </span>
-      </div> */}
+      </div>
     </div>
 
 
