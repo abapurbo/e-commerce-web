@@ -1,12 +1,8 @@
 import React, { useRef, useState } from 'react';
-// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { motion } from "framer-motion";
-import bannerimg from '../../assets/banner1.png'
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
-
+import "../Banner/styles.css"
 import './styles.css';
 
 // import required modules
@@ -22,14 +18,11 @@ export default function App() {
         className="mySwiper"
       >
         <SwiperSlide>
-           <img className='w-[100%]' src={bannerimg} alt="" />
+           <img className='banner-img' src='https://i.ibb.co.com/6chd1NDy/Blue-Photo-Beauty-Skincare-Blog-Banner-5.png' alt="" />
         </SwiperSlide>
 
         <SwiperSlide>
-          Slide 2
-        </SwiperSlide>
-        <SwiperSlide>
-
+          <img className='banner-img' src="https://i.ibb.co.com/4Zw0ZCN1/Brown-Minimalist-Fashion-Facebook-Cover-2.png" alt="" />
         </SwiperSlide>
         <SwiperSlide>
 
@@ -37,6 +30,7 @@ export default function App() {
         <SwiperSlide>
 
         </SwiperSlide>
+        
 
       </Swiper>
     </>
