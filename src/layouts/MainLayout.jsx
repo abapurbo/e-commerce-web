@@ -7,7 +7,7 @@ export default function MainLayout() {
     return (
         <div>
         {/*navbar section*/}
-        <div className=''>
+        <div className='h-26'>
            <Navbar/>
         </div>
         {/* main  section*/}
