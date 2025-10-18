@@ -1,8 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaUserAlt, FaEnvelope, FaLock } from "react-icons/fa";
+import { AuthContext } from "../../Context/AuthContext/AuthContext";
+import { useAuth } from "../../Hooks/useAuth";
 
 export default function SignUp() {
+  const { signInWithGoogle, createUser, profileUpdate } = useAuth()
+  const [error, setError] = useState('')
+  const [show, setShow] = useState(false)
+
+  // handle create user
+  const handleCreateUser = (e) => {
+    e.preventDefault();
+    const fromData = e.target;
+    const name = fromData.name.value;
+    const email = fromData.email.value;
+    const password = fromData.password.value;
+
+    // create user
+    createUser(email, password)
+      .then((result) => {
+        console.log(result?.user)
+        const profile = {
+          displyName: name,
+        }
+        profileUpdate(profile)
+      })
+      .catch((err) => {
+        console.log('Error', err)
+      })
+  }
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-emerald-900 to-gray-800 p-6">
 
@@ -42,7 +69,8 @@ export default function SignUp() {
                 <FaUserAlt className="absolute left-3 top-3 text-emerald-500" />
                 <input
                   type="text"
-                  placeholder="John Doe"
+                  name="name"
+                  placeholder="Enter your name"
                   className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl shadow-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
                 />
               </div>
@@ -57,7 +85,8 @@ export default function SignUp() {
                 <FaEnvelope className="absolute left-3 top-3 text-emerald-500" />
                 <input
                   type="email"
-                  placeholder="you@example.com"
+                  name="email"
+                  placeholder="Enter your email"
                   className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl shadow-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
                 />
               </div>
@@ -72,7 +101,8 @@ export default function SignUp() {
                 <FaLock className="absolute left-3 top-3 text-emerald-500" />
                 <input
                   type="password"
-                  placeholder="••••••••"
+                  name="password"
+                  placeholder="Enter your password"
                   className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl shadow-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
                 />
               </div>
@@ -95,6 +125,7 @@ export default function SignUp() {
 
             {/* Google Button */}
             <button
+              onClick={signInWithGoogle}
               type="button"
               className="w-full bg-white hover:bg-gray-50 text-gray-800 py-3 rounded-xl font-medium border border-gray-300 flex items-center justify-center gap-3 shadow-sm hover:shadow-md transition-all duration-300"
             >
