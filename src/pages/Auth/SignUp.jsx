@@ -5,10 +5,9 @@ import { AuthContext } from "../../Context/AuthContext/AuthContext";
 import { useAuth } from "../../Hooks/useAuth";
 
 export default function SignUp() {
-  const { signInWithGoogle, createUser, profileUpdate } = useAuth()
+  const { signInWithGoogle, createUser, profileUpdate, verifyEmail } = useAuth()
   const [error, setError] = useState('')
   const [show, setShow] = useState(false)
-
   // handle create user
   const handleCreateUser = (e) => {
     e.preventDefault();
@@ -16,15 +15,17 @@ export default function SignUp() {
     const name = fromData.name.value;
     const email = fromData.email.value;
     const password = fromData.password.value;
-
+    console.log(name, email, password)
     // create user
     createUser(email, password)
       .then((result) => {
         console.log(result?.user)
         const profile = {
-          displyName: name,
+          displayName: name,
         }
         profileUpdate(profile)
+        // verify email
+        verifyEmail()
       })
       .catch((err) => {
         console.log('Error', err)
@@ -59,7 +60,7 @@ export default function SignUp() {
             Create your account
           </h2>
 
-          <form className="space-y-6" autoComplete="off">
+          <form onSubmit={handleCreateUser} className="space-y-6">
             {/* Full Name Field */}
             <div>
               <label className="block mb-2 text-gray-700 font-semibold">
