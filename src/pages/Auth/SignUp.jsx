@@ -59,7 +59,7 @@ export default function SignUp() {
             Create your account
           </h2>
 
-          <form className="space-y-6">
+          <form className="space-y-6" autoComplete="off">
             {/* Full Name Field */}
             <div>
               <label className="block mb-2 text-gray-700 font-semibold">
