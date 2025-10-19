@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AuthContext } from '../AuthContext/AuthContext'
-import { createUserWithEmailAndPassword, GoogleAuthProvider, sendEmailVerification, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { auth } from '../../config/firebase.config';
 
 // sosical provider
@@ -9,15 +9,15 @@ const googleProvider = new GoogleAuthProvider();
 export default function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-
+    console.log(user)
     //  create user 
     const createUser = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password)
 
     }
     // email verification
-    const verifyEamil=()=>{
-         return sendEmailVerification(auth.currentUser);
+    const verifyEmail = () => {
+        return sendEmailVerification(auth.currentUser);
     }
     // signOutUser
     const logOutUser = () => {
@@ -26,14 +26,21 @@ export default function AuthProvider({ children }) {
     const profileUpdate = (profile) => {
         return updateProfile(auth.currentUser, profile)
     }
-
+    //  observe user
+    useEffect(() => {
+        const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser);
+            setLoading(false);
+        })
+        return () => unSubscribe()
+    }, [])
     //google signinpopup
     const signInwithGoogle = () => signInWithPopup(auth, googleProvider)
     const authData = {
         user,
         loading,
         createUser,
-        verifyEamil,
+        verifyEmail,
         signInwithGoogle,
         profileUpdate,
         logOutUser,

@@ -26,6 +26,13 @@ export default function SignUp() {
         profileUpdate(profile)
         // verify email
         verifyEmail()
+          .then(() => {
+            alert('your email verify')
+            e.target.reset()
+          })
+          .catch(err => {
+            console.log('verifyError', err)
+          })
       })
       .catch((err) => {
         console.log('Error', err)
